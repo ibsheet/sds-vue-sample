@@ -359,23 +359,6 @@ const IB_Preset = {
         }
       }
     }
-  },
-  // Extend 를 사용하여 필요한 컬럼이 있는 경우 선언하여 IB_Preset.컬럼명으로 사용하시면 됩니다.
-  'L3': {
-    Type: 'Text',
-    CanEdit: 0,
-    OnClick: evt => {
-      // 클릭시 특정 url 호출하면서 정보11, 12 param 실려가는거 확인.
-      evt.sheet.ajax({url: 'http://localhost:8000/api/ajaxTest', param: 'L1=' + evt.row['L1'] + '&' + 'L2=' + evt.row['L2']});
-    }
-  },
-  'L5': {
-    Type: 'Button',
-    Button: 'Button',
-    OnClick: evt => {
-      // 버튼 클릭시 특정 URL 호출
-      location.href = 'https://ibsheet.com/'
-    }
   }
 };
 

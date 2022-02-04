@@ -26,8 +26,11 @@
 import loader from '@ibsheet/loader';
 import { IB_Preset } from "../shared/common"; // Extend 를 사용하기 위한 모듈 파일.
 
+// 시트 id
 let SHEET_ID = '';
+// 팝업 시트 id
 let popSheetId = '';
+// 시트 객체 담을 변수
 let ibsheet = {};
 
 export default {
@@ -58,13 +61,16 @@ export default {
       // 시트 옵션
       sheetOpt: {
         options: {
+          // 공통 설정의 경우 Def 를 이용하여 할 수 있습니다.
           Def: {
             Col: {
               Width: 70,
               Align: 'Center'
             },
             Row: {
+              // Formula 를 사용하기 위한 옵션
               CanFormula: true,
+              // Formula 를 사용할 컬럼 이름, attribute + Formula 의 경우 컬럼 + 속성명을 입력합니다. ex) 컬럼이름: M7 속성: EmptyValue
               CalcOrder: 'L8,M7EmptyValue,R2'
             }
           },
@@ -79,25 +85,34 @@ export default {
             {
               Header: ['삭제', '삭제'],
               Name: 'DelCheck',
-              // IB_Preset 모듈 적용
+              // Extend 를 사용하여 IB_Preset 모듈을 입힐 수 있습니다.
               Extend: IB_Preset.DelCheck
             },
             {
               Header: ['정보', '정보11'],
               Name: 'L1',
               Type: 'Text',
+              // TextColor 를 사용하여 글씨색을 변경할 수 있습니다.
               TextColor: '#f00'
             },
             {
               Header: ['정보', '정보12'],
               Name: 'L2',
               Type: 'Text',
+              // Color 를 사용하여 배경색을 변경할 수 있습니다.
               Color: '#ff7f00'
             },
             {
               Header: ['정보', '정보13'],
               Name: 'L3',
-              Extend: IB_Preset.L3
+              Type: 'Text',
+              // CanEdit 을 사용하여 편집불가(0), 가능(1)을 할 수 있습니다.
+              CanEdit: 0,
+              // 셀의 OnClick 이벤트를 사용합니다.
+              OnClick: evt => {
+                // 클릭시 특정 url 호출하면서 정보11, 12 param 실려가는거 확인.
+                evt.sheet.ajax({url: 'http://localhost:8000/api/ajaxTest', param: 'L1=' + evt.row['L1'] + '&' + 'L2=' + evt.row['L2']});
+              }
             },
             {
               Header: ['정보2', '정보21'],
@@ -107,7 +122,13 @@ export default {
             {
               Header: ['정보2', '정보22'],
               Name: 'L5',
-              Extend: IB_Preset.L5
+              // Button 을
+              Type: 'Button',
+              Button: 'Button',
+              OnClick: evt => {
+                // 버튼 클릭시 특정 URL 호출
+                location.href = 'https://ibsheet.com/'
+              }
             },
             {
               Header: ['정보2', '날짜1'],
@@ -146,6 +167,7 @@ export default {
               Extend: IB_Preset.mmss
             },
             {
+              // Text 컬럼을 이용하여 분초 마스킹
               Header: ['정보2', '분초 마스킹'],
               Name: 'L11',
               Extend: IB_Preset.MaskingBunCho
