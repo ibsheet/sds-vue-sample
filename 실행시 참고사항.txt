@@ -1,3 +1,12 @@
 1. npm install 또는 yarn
 2. Vue 서버 시작: yarn start
 3. Node 서버 시작: node app.js (임시 서버 데이터 보내주는 곳)
+4. Header css 변경
+main.css 맨 아래 해당 로직 추가
+
+.IBHeadLeft:nth-of-type(1) tr:nth-child(2) .IBCellHeader {
+  background-color: gray;
+}
+.IBHeadRight:nth-of-type(1) tr:nth-child(2) .IBCellHeader {
+  background-color: gray;
+}
